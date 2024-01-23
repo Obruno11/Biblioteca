@@ -16,31 +16,19 @@
 */
 
 public class Biblioteca {
-    private String[] titulos;
-    private String[] autores;
-    private String[] isbns;
-    private int[] numPaginas;
-    private String[] generosLiterarios;
+    private Libro[] Biblioteca;
 
     public Biblioteca() {
-        titulos = new String[100];
-        autores = new String[100];
-        isbns = new String[100];
-        numPaginas = new int[100];
-        generosLiterarios = new String[100];
+
     }
 
     // Devuelve true si añade el libro en la biblioteca o false en caso contrario
     public boolean añadirLibro(String titulo, String autor, String isbn, int numPaginas, String generoLiterario) {
-
         for (int i = 0; i < 100; i++) {
-            if (titulos[i] == null) {
-                titulos[i] = titulo;
-                autores[i] = autor;
-                isbns[i] = isbn;
-                this.numPaginas[i] = numPaginas;
-                generosLiterarios[i] = generoLiterario;
-                return true;
+            Libro libro=Biblioteca[i];
+            if (libro.getTitulo() == null) {
+                Libro guardarLibro = new Libro(titulo, autor, isbn, numPaginas, generoLiterario);
+                Biblioteca[i]=guardarLibro;
             }
         }
         return false;
@@ -49,14 +37,15 @@ public class Biblioteca {
     // Elimina el libro con el isbn indicado
     public void eliminarLibro(String isbn) {
         for (int i = 0; i < 100; i++) {
-           
-                if (isbns[i] != null&&isbns[i].equals(isbn)) {
-                    titulos[i] = null;
-                    autores[i] = null;
-                    isbns[i] = null;
-                    numPaginas[i] = 0;
-                }
-            
+            Libro libro=Biblioteca[i];
+            if (libro.getIsbn() != null && libro.getIsbn().equals(isbn)) {
+                libro.setTitulo(null);
+                libro.setAutor(null); 
+                libro.setIsbn(null);
+                libro.setNumPaginas(0);
+                libro.setGenerosLiterario(null);
+            }
+
         }
     }
 
@@ -64,12 +53,13 @@ public class Biblioteca {
     public void mostrarLibros() {
         System.out.println("Los libros de la biblioteca son:");
         for (int i = 0; i < 100; i++) {
-            if (titulos[i] != null) {
-                System.out.print("Titulo: " + titulos[i]);
-                System.out.print("Autor: " + autores[i]);
-                System.out.print("ISBN: " + isbns[i]);
-                System.out.print("Numero de paginas: " + numPaginas[i]);
-                System.out.print("Genero literario: " + generosLiterarios[i]);
+            Libro libro=Biblioteca[i];
+            if (libro.getTitulo() != null) {
+                System.out.print("Titulo: " + libro.getTitulo());
+                System.out.print("Autor: " + libro.getAutor());
+                System.out.print("ISBN: " + libro.getIsbn());
+                System.out.print("Numero de paginas: " + libro.getNumPaginas());
+                System.out.print("Genero literario: " + libro.getGenerosLiterario());
                 System.out.println(" ");
             }
         }
@@ -78,39 +68,20 @@ public class Biblioteca {
     }
 
     // Muestra los libros con el genero literario Novela
-    public void getNovelas() {
+    public void getPorGenero(String genero) {
         System.out.println("Los libros de novela de la biblioteca son:");
 
         for (int i = 0; i < 100; i++) {
-
-            if (generosLiterarios[i] != null && generosLiterarios[i].equals("Novela")) {
-
-                System.out.print("Titulo: " + titulos[i]);
-                System.out.print("Autor: " + autores[i]);
-                System.out.print("ISBN: " + isbns[i]);
-                System.out.print("Numero de paginas: " + numPaginas[i]);
+            Libro libro=Biblioteca[i];
+            if (libro.getGenerosLiterario() != null && libro.getGenerosLiterario().equals(genero)) {
+                System.out.print("Titulo: " + libro.getTitulo());
+                System.out.print("Autor: " + libro.getAutor());
+                System.out.print("ISBN: " + libro.getIsbn());
+                System.out.print("Numero de paginas: " + libro.getNumPaginas());
                 System.out.println(" ");
             }
 
         }
-        System.out.println();
-
-    }
-
-    // Muestra los libros con el genero literario Poesia
-    public void getPoesia() {
-        System.out.println("Los libros de poesia de la biblioteca son:");
-        for (int i = 0; i < 100; i++) {
-
-            if (generosLiterarios[i] != null && generosLiterarios[i].equals("Poesia")) {
-                System.out.print("Titulo: " + titulos[i]);
-                System.out.print("Autor: " + autores[i]);
-                System.out.print("ISBN: " + isbns[i]);
-                System.out.print("Numero de paginas: " + numPaginas[i]);
-                System.out.println(" ");
-            }
-        }
-
         System.out.println();
 
     }
@@ -121,12 +92,11 @@ public class Biblioteca {
         String[] librosAutor = new String[100];
         int contador = 0;
         for (int i = 0; i < 100; i++) {
-
-            if (autores[i] != null && autores[i].equals(autor)) {
-                librosAutor[contador] = titulos[i];
+            Libro libro=Biblioteca[i];
+            if (libro.getAutor() != null && libro.getAutor().equals(autor)) {
+                librosAutor[contador] = libro.getTitulo();
                 contador++;
             }
-
         }
         return librosAutor;
     }
@@ -134,14 +104,15 @@ public class Biblioteca {
     // Nos devuelve el titulo del libro con mas paginas
     public void mostrarLibroMasLargo() {
         int max = 0;
-        String titulo="";
+        String titulo = "";
         for (int i = 0; i < 100; i++) {
-            if (numPaginas[i] > max) {
-                max = numPaginas[i];
-                titulo = titulos[i];
+            Libro libro=Biblioteca[i];
+            if (libro.getNumPaginas() > max) {
+                max = libro.getNumPaginas();
+                titulo = libro.getTitulo();
             }
         }
-       System.out.println("El libro mas largo es: "+ titulo);
+        System.out.println("El libro mas largo es: " + titulo);
     }
 
 }
