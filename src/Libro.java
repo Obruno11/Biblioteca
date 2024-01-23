@@ -6,7 +6,11 @@ public class Libro {
     private String generosLiterario;
 
     public Libro() {
-
+        this.titulo = null;
+        this.autor = null;
+        this.isbn = null;
+        this.numPaginas = 0;
+        this.generosLiterario = null;
     }
 
     public Libro(String titulo, String autor, String isbn, int numPaginas, String generosLiterario) {
@@ -57,4 +61,12 @@ public class Libro {
         this.generosLiterario = generosLiterario;
     }
 
+    public void imprimirLibro() {
+        System.out.println("Titulo: " + titulo);
+        System.out.println("Autor: " + autor);
+        System.out.println("ISBN: " + isbn);
+        System.out.println("Numero de paginas: " + numPaginas);
+        System.out.println("Genero literario: " + generosLiterario);
+        System.out.println(" ");
+    }
 }

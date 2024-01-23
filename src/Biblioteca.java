@@ -16,10 +16,13 @@
 */
 
 public class Biblioteca {
-    private Libro[] Biblioteca;
+    private Libro[] Biblioteca = new Libro[100];
 
     public Biblioteca() {
-
+        for (int i=0; i<Biblioteca.length;i++){
+            Libro libro= new Libro();
+            Biblioteca[i]= libro;
+        }
     }
 
     // Devuelve true si añade el libro en la biblioteca o false en caso contrario
@@ -29,6 +32,7 @@ public class Biblioteca {
             if (libro.getTitulo() == null) {
                 Libro guardarLibro = new Libro(titulo, autor, isbn, numPaginas, generoLiterario);
                 Biblioteca[i]=guardarLibro;
+                return true;
             }
         }
         return false;
@@ -55,12 +59,7 @@ public class Biblioteca {
         for (int i = 0; i < 100; i++) {
             Libro libro=Biblioteca[i];
             if (libro.getTitulo() != null) {
-                System.out.print("Titulo: " + libro.getTitulo());
-                System.out.print("Autor: " + libro.getAutor());
-                System.out.print("ISBN: " + libro.getIsbn());
-                System.out.print("Numero de paginas: " + libro.getNumPaginas());
-                System.out.print("Genero literario: " + libro.getGenerosLiterario());
-                System.out.println(" ");
+                libro.imprimirLibro();
             }
         }
         System.out.println();
@@ -74,11 +73,7 @@ public class Biblioteca {
         for (int i = 0; i < 100; i++) {
             Libro libro=Biblioteca[i];
             if (libro.getGenerosLiterario() != null && libro.getGenerosLiterario().equals(genero)) {
-                System.out.print("Titulo: " + libro.getTitulo());
-                System.out.print("Autor: " + libro.getAutor());
-                System.out.print("ISBN: " + libro.getIsbn());
-                System.out.print("Numero de paginas: " + libro.getNumPaginas());
-                System.out.println(" ");
+                libro.imprimirLibro();
             }
 
         }
